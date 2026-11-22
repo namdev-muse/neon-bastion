@@ -1174,7 +1174,7 @@ function onRunEnd() {
     pushScreen('complete');
   } else {
     $('maplost-text').textContent = `The swarm broke through on wave ${run.wavesCleared + 1}.`;
-    $('maplost-stats').textContent = `${run.kills} kills · ${run.leaked} leaked · score ${run.score.toLocaleString()}`;
+    $('maplost-stats').textContent = `${run.kills} kills · ${run.leaked} leaked · ${run.livesLost} lives lost · score ${run.score.toLocaleString()}`;
     $('maplost-best').textContent = best.waves ? `Best on ${map.name}: ${best.score.toLocaleString()} (${best.waves}/${map.waves.length} waves)` : '';
     pushScreen('maplost');
   }

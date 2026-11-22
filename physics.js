@@ -1,4 +1,4 @@
-// Neon Bastion v0.1.0 — pure simulation core (no DOM, no Three.js).
+// Neon Bastion v0.2.0 — pure simulation core (no DOM, no Three.js).
 // 3D neon tower defense: enemies stream along glowing paths toward the
 // core; the player places, upgrades and sells towers on grid pads and
 // manages a tight credit economy. Leaked enemies damage the core;
@@ -44,7 +44,7 @@ export function worldToCell(x, z) {
 // --- towers ---
 // bolt  — cheap single-target DPS: the workhorse. Fast shots, long reach.
 // pulse — slow AoE burst: the swarm answer. Weak vs single armoured targets.
-// frost — low damage, chills enemies (45-55% slow): the control tower.
+// frost — low damage, chills enemies (50-60% slow): the control tower.
 // The three are distinct roles, not reskins: a map cleared by spamming
 // one type is a map that is not done (the bot gate enforces this).
 export const TOWER_DEFS = {
@@ -246,7 +246,7 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.2 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.7 }, { type: 'armored', count: 2, delay: 3, gap: 1.2 }] },
-      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 0.8 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.0 }, { type: 'runner', count: 6, delay: 3, gap: 0.8 }, { type: 'armored', count: 6, delay: 6, gap: 1.3 }] },
       { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 6, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 14, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 8, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
@@ -262,8 +262,8 @@ export const MAPS = [
     ],
     waves: [
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.1 }] },
-      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.7 }, { type: 'armored', count: 3, delay: 3, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 1.1 }, { type: 'runner', count: 3, delay: 5, gap: 0.7 }] },
+      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.9 }, { type: 'armored', count: 3, delay: 4, gap: 1.2 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }] },
       { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 16, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 8, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
@@ -280,8 +280,8 @@ export const MAPS = [
     ],
     waves: [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.5 }] },
-      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.7 }, { type: 'armored', count: 4, delay: 3, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 1.1 }, { type: 'runner', count: 4, delay: 5, gap: 0.7 }] },
+      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.9 }, { type: 'armored', count: 4, delay: 4, gap: 1.2 }] },
       { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.6 }, { type: 'armored', count: 7, delay: 6, gap: 1.1 }] },
       { groups: [{ type: 'armored', count: 10, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 16, delay: 0, gap: 0.6 }, { type: 'runner', count: 14, delay: 3, gap: 0.55 }, { type: 'armored', count: 9, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
@@ -299,8 +299,8 @@ export const MAPS = [
     waves: [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.1 }, { type: 'runner', count: 2, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 14, delay: 0, gap: 0.6 }, { type: 'armored', count: 4, delay: 3, gap: 1.1 }] },
-      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.8 }, { type: 'runner', count: 10, delay: 3, gap: 0.6 }, { type: 'armored', count: 10, delay: 6, gap: 1.1 }] },
+      { groups: [{ type: 'runner', count: 14, delay: 0, gap: 0.8 }, { type: 'armored', count: 4, delay: 4, gap: 1.1 }] },
+      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 1.0 }, { type: 'runner', count: 10, delay: 3, gap: 0.8 }, { type: 'armored', count: 10, delay: 7, gap: 1.1 }] },
       { groups: [{ type: 'armored', count: 10, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 16, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 18, delay: 0, gap: 0.6 }, { type: 'runner', count: 24, delay: 3, gap: 0.55 }, { type: 'armored', count: 12, delay: 6, gap: 1.0 }, { type: 'boss', count: 3, delay: 11, gap: 2.5 }] },
     ],
@@ -315,9 +315,9 @@ export const MAPS = [
       [9, 7], [10, 7], [12, 7], [5, 7], [4, 6], [3, 3], [2, 5], [0, 8], [13, 2],
     ],
     waves: [
-      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.0 }] },
-      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.6 }, { type: 'armored', count: 3, delay: 3, gap: 1.1 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.1 }, { type: 'runner', count: 3, delay: 5, gap: 0.7 }] },
+      { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.8 }, { type: 'armored', count: 3, delay: 4, gap: 1.1 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 4, delay: 6, gap: 1.0 }] },
       { groups: [{ type: 'armored', count: 12, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 10, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 24, delay: 0, gap: 0.6 }, { type: 'runner', count: 20, delay: 3, gap: 0.55 }, { type: 'armored', count: 12, delay: 6, gap: 1.0 }, { type: 'boss', count: 4, delay: 11, gap: 2.5 }] },
@@ -414,7 +414,7 @@ export function createRun(map) {
     credits: START_CREDITS,
     lives: CORE_LIVES, maxLives: CORE_LIVES,
     score: 0,
-    kills: 0, leaked: 0,
+    kills: 0, leaked: 0, livesLost: 0,
     towersPlaced: 0, towersSold: 0, upgradesBought: 0,
     creditsEarned: 0, creditsSpent: 0,
     waveIndex: 0, phase: 'build', // 'build' | 'fight' | 'done'
@@ -605,6 +605,7 @@ export function stepRun(run, dt = DT) {
       run.enemies.splice(run.enemies.indexOf(e), 1);
       const def = ENEMY_DEFS[e.type];
       run.lives -= def.damage;
+      run.livesLost += def.damage;
       run.leaked++;
       events.push({ type: 'leak', kind: e.type, damage: def.damage, lives: run.lives });
       if (run.lives <= 0) {
