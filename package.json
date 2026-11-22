@@ -1,1 +1,15 @@
-{"description":"Neon Bastion — a 3D neon tower defense built with Three.js","license":"MIT","name":"neon-bastion","scripts":{"bot":"node tests/bot.js","render-check":"node tests/render-check.js","screenshots":"node tests/screenshots.js","serve":"python3 -m http.server 8126","smoke":"node tests/smoke.js","test":"node tests/smoke.js && node tests/bot.js"},"type":"module","version":"0.1.0"}
+{
+  "description": "Neon Bastion \u2014 a 3D neon tower defense built with Three.js",
+  "license": "MIT",
+  "name": "neon-bastion",
+  "scripts": {
+    "bot": "node tests/bot.js",
+    "render-check": "node tests/render-check.js",
+    "screenshots": "node tests/screenshots.js",
+    "serve": "python3 -m http.server 8126",
+    "smoke": "node tests/smoke.js",
+    "test": "node tests/smoke.js && node tests/bot.js"
+  },
+  "type": "module",
+  "version": "0.2.0"
+}

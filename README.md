@@ -31,13 +31,18 @@ A 3D neon tower defense built with [Three.js](https://threejs.org/) 0.160.0 — 
 | R | Restart map |
 | Esc | Back / deselect |
 
-## Maps (M1 — 3 of 8 planned)
+## Maps (M2 — 8 of 8)
 
 | Map | Identity |
 |---|---|
 | 1. First Light | The teaching map — an S-bend with choke points at the turns. |
 | 2. Crossroads | A short path that doubles back on itself; the middle zigzag is the whole map. |
 | 3. The Gauntlet | Four turns, one long road, two bosses in the final waves. |
+| 4. Switchback | Five sharp turns — bolts on the bends, frost in the middle. |
+| 5. The Corridor | Two long parallel runs with a jog — the middle pads cover both. |
+| 6. The Circuit | A full loop around the rim — inside pads see every side. |
+| 7. Serpent | The longest road — every row is a firing line. The campaign breather: a good build feels unstoppable here. |
+| 8. The Crucible | A winding maze, short on mercy — the final test, with four bosses in the last wave. |
 
 ## Development
 
@@ -52,8 +57,8 @@ npm run serve     # serve locally on http://localhost:8126
 
 - `physics.js` — pure simulation core (no DOM, no Three.js): grid, paths, towers, enemies, waves, economy, bots. Fully deterministic.
 - `game.js` — Three.js rendering, menu/HUD, audio, game feel, public hooks (`window.__bastion`).
-- `tests/smoke.js` — 154 Node checks over the simulation.
-- `tests/bot.js` — anti-slop gates: a decision bot must clear every map; a random-placement bot must lose on every map; bolt-only spam must fail map 3.
+- `tests/smoke.js` — 214 Node checks over the simulation.
+- `tests/bot.js` — anti-slop gates: a decision bot must clear every map; a random-placement bot must lose on every map; bolt-only spam must fail every map.
 - `tests/render-check.js` — headless Chromium: menu, gates, screen-space pad clicks, keys, combat feedback, autopilot clear, leak, pause, `?map=` seed path, accessibility, FPS guard — zero console errors.
 
 ## Anti-slop
@@ -62,7 +67,7 @@ No auto-place, no "best tower" hint, no placement preview that solves the map. T
 
 ## Version
 
-v0.1.0 (M1 core). Three.js 0.160.0 via jsdelivr import map.
+v0.2.0 (M2 map craft — 8 maps). Three.js 0.160.0 via jsdelivr import map.
 
 ## License
 

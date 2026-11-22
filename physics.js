@@ -11,7 +11,7 @@
 // must make real economy + positioning decisions: a bot that places
 // towers at random LOSES on every map (see tests/bot.js).
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 export const DT = 1 / 60;
 export const GRID_COLS = 14;
 export const GRID_ROWS = 9;
@@ -193,8 +193,8 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.9 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 6, delay: 0, gap: 0.7 }, { type: 'armored', count: 4, delay: 3, gap: 1.2 }] },
-      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 6, delay: 4, gap: 1.2 }, { type: 'boss', count: 1, delay: 9, gap: 1 }] },
-      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.7 }, { type: 'runner', count: 10, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }, { type: 'boss', count: 1, delay: 11, gap: 1 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 8, delay: 4, gap: 1.2 }, { type: 'boss', count: 1, delay: 9, gap: 1 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.7 }, { type: 'runner', count: 10, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }, { type: 'boss', count: 3, delay: 11, gap: 2.5 }] },
     ],
   },
   {
@@ -211,8 +211,8 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.7 }, { type: 'armored', count: 2, delay: 3, gap: 1.2 }] },
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 0.8 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }] },
-      { groups: [{ type: 'armored', count: 6, delay: 0, gap: 1.2 }, { type: 'boss', count: 1, delay: 5, gap: 1 }, { type: 'runner', count: 6, delay: 8, gap: 0.6 }] },
-      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.7 }, { type: 'runner', count: 10, delay: 3, gap: 0.6 }, { type: 'armored', count: 7, delay: 6, gap: 1.0 }, { type: 'boss', count: 1, delay: 11, gap: 1 }] },
+      { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.2 }, { type: 'boss', count: 1, delay: 5, gap: 1 }, { type: 'runner', count: 6, delay: 8, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.7 }, { type: 'runner', count: 10, delay: 3, gap: 0.6 }, { type: 'armored', count: 7, delay: 6, gap: 1.0 }, { type: 'boss', count: 3, delay: 11, gap: 2.5 }] },
     ],
   },
   {
@@ -230,7 +230,97 @@ export const MAPS = [
       { groups: [{ type: 'runner', count: 8, delay: 0, gap: 0.6 }, { type: 'armored', count: 2, delay: 3, gap: 1.1 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.7 }, { type: 'runner', count: 7, delay: 3, gap: 0.6 }, { type: 'armored', count: 3, delay: 6, gap: 1.0 }] },
       { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
-      { groups: [{ type: 'grunt', count: 14, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 7, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
+      { groups: [{ type: 'grunt', count: 14, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 9, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
+    ],
+  },
+  {
+    id: 4, name: 'Switchback', seed: 44,
+    hint: 'Five sharp turns — bolts on the bends, frost in the middle.',
+    theme: { ring: '#a78bfa', glow: '#6d28d9', accent: '#22d3ee', disc: '#120b2e', tint: '#c4b5fd' },
+    path: [[0, 2], [9, 2], [9, 6], [5, 6], [5, 1], [13, 1]],
+    pads: [
+      [8, 3], [10, 3], [10, 5], [6, 5], [4, 5], [4, 3], [3, 3], [6, 0],
+      [7, 0], [10, 0], [12, 2], [13, 3], [13, 5], [0, 4], [0, 0], [2, 7], [11, 7],
+    ],
+    waves: [
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
+      { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.7 }, { type: 'armored', count: 2, delay: 3, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 0.8 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }] },
+      { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 6, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 14, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 8, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
+    ],
+  },
+  {
+    id: 5, name: 'The Corridor', seed: 55,
+    hint: 'Two long runs with a jog — the middle pads cover both.',
+    theme: { ring: '#34d399', glow: '#047857', accent: '#fbbf24', disc: '#06180f', tint: '#6ee7b7' },
+    path: [[0, 1], [13, 1], [13, 4], [10, 4], [10, 7], [0, 7]],
+    pads: [
+      [6, 2], [9, 2], [12, 2], [3, 3], [7, 3], [11, 3], [9, 5], [6, 6],
+      [3, 6], [11, 6], [12, 5], [8, 5], [12, 0], [0, 3], [0, 5], [13, 6], [13, 8],
+    ],
+    waves: [
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.1 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
+      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.7 }, { type: 'armored', count: 3, delay: 3, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }] },
+      { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 16, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 8, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
+    ],
+  },
+  {
+    id: 6, name: 'The Circuit', seed: 66,
+    hint: 'A full loop around the rim — inside pads see every side.',
+    theme: { ring: '#fb923c', glow: '#c2410c', accent: '#a78bfa', disc: '#1c0e06', tint: '#fdba74' },
+    path: [[0, 8], [0, 0], [13, 0], [13, 8], [4, 8]],
+    pads: [
+      [1, 1], [4, 1], [7, 1], [10, 1], [12, 1], [1, 4], [12, 4], [1, 7],
+      [4, 7], [7, 7], [10, 7], [12, 7], [2, 2], [11, 2], [2, 6], [11, 6], [6, 4],
+    ],
+    waves: [
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.5 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
+      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.7 }, { type: 'armored', count: 4, delay: 3, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.6 }, { type: 'armored', count: 7, delay: 6, gap: 1.1 }] },
+      { groups: [{ type: 'armored', count: 10, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 16, delay: 0, gap: 0.6 }, { type: 'runner', count: 14, delay: 3, gap: 0.55 }, { type: 'armored', count: 9, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
+    ],
+  },
+  {
+    id: 7, name: 'Serpent', seed: 77,
+    hint: 'The longest road — every row is a firing line.',
+    theme: { ring: '#fb7185', glow: '#be123c', accent: '#34d399', disc: '#1c060b', tint: '#fda4af' },
+    path: [[0, 1], [13, 1], [13, 3], [0, 3], [0, 5], [13, 5], [13, 7], [0, 7]],
+    pads: [
+      [2, 2], [6, 2], [10, 2], [3, 4], [7, 4], [11, 4], [2, 6], [6, 6],
+      [10, 6], [1, 0], [5, 0], [9, 0], [12, 0], [4, 8], [8, 8], [12, 8], [0, 0],
+    ],
+    waves: [
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.1 }, { type: 'runner', count: 2, delay: 4, gap: 0.7 }] },
+      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
+      { groups: [{ type: 'runner', count: 14, delay: 0, gap: 0.6 }, { type: 'armored', count: 4, delay: 3, gap: 1.1 }] },
+      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.8 }, { type: 'runner', count: 10, delay: 3, gap: 0.6 }, { type: 'armored', count: 10, delay: 6, gap: 1.1 }] },
+      { groups: [{ type: 'armored', count: 10, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 16, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 18, delay: 0, gap: 0.6 }, { type: 'runner', count: 24, delay: 3, gap: 0.55 }, { type: 'armored', count: 12, delay: 6, gap: 1.0 }, { type: 'boss', count: 3, delay: 11, gap: 2.5 }] },
+    ],
+  },
+  {
+    id: 8, name: 'The Crucible', seed: 88,
+    hint: 'A winding maze, short on mercy — the final test. Hold the line.',
+    theme: { ring: '#7dd3fc', glow: '#0369a1', accent: '#fb7185', disc: '#06121c', tint: '#bae6fd' },
+    path: [[0, 4], [7, 4], [7, 0], [11, 0], [11, 6], [6, 6], [6, 8], [13, 8]],
+    pads: [
+      [6, 3], [8, 3], [6, 5], [8, 5], [9, 2], [10, 2], [12, 2], [12, 4],
+      [9, 7], [10, 7], [12, 7], [5, 7], [4, 6], [3, 3], [2, 5], [0, 8], [13, 2],
+    ],
+    waves: [
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.0 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
+      { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.6 }, { type: 'armored', count: 3, delay: 3, gap: 1.1 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 4, delay: 6, gap: 1.0 }] },
+      { groups: [{ type: 'armored', count: 12, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 10, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 24, delay: 0, gap: 0.6 }, { type: 'runner', count: 20, delay: 3, gap: 0.55 }, { type: 'armored', count: 12, delay: 6, gap: 1.0 }, { type: 'boss', count: 4, delay: 11, gap: 2.5 }] },
     ],
   },
 ];

@@ -761,7 +761,7 @@ function refreshMapSelect() {
     card.className = 'map-card' + (m.id === selectedMapId ? ' selected' : '') + (unlocked ? '' : ' locked');
     card.style.setProperty('--card-accent', m.theme.ring);
     card.innerHTML = `<span class="map-name">${m.id}. ${m.name}</span>`
-      + `<span class="map-meta">${m.waves.length} waves &middot; ${m.waves.reduce((n, w) => n + w.groups.reduce((a, g) => a + g.count, 0), 0)} enemies &middot; ${mapGeometry(m).lengthCells} cells of path</span>`
+      + `<span class="map-meta">${m.waves.length} waves &middot; ${m.waves.reduce((n, w) => n + w.groups.reduce((a, g) => a + g.count, 0), 0)} enemies &middot; ${mapGeometry(m).lengthCells} cells</span>`
       + (!unlocked
         ? `<span class="map-best map-locked">Clear Map ${m.id - 1} to unlock</span>`
         : best ? `<span class="map-best">Best ${best.score.toLocaleString()} &middot; ${best.waves}/${m.waves.length} waves</span>` : '<span class="map-best">Not cleared yet</span>');
