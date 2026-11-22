@@ -52,9 +52,9 @@ export const TOWER_DEFS = {
     id: 'bolt', name: 'Bolt', cost: 60, color: '#22d3ee',
     desc: 'Fast single-target shots. Reliable damage at long range.',
     levels: [
-      { damage: 5, rate: 1.3, range: 2.9 },
-      { damage: 8, rate: 1.4, range: 3.2 },
-      { damage: 12, rate: 1.5, range: 3.5 },
+      { damage: 6, rate: 1.3, range: 2.9 },
+      { damage: 10, rate: 1.4, range: 3.2 },
+      { damage: 14, rate: 1.5, range: 3.5 },
     ],
   },
   pulse: {
@@ -70,9 +70,9 @@ export const TOWER_DEFS = {
     id: 'frost', name: 'Frost', cost: 80, color: '#a78bfa',
     desc: 'Chills enemies, slowing them so other towers land more hits.',
     levels: [
-      { damage: 3, rate: 1.0, range: 2.8, slow: 0.40, slowDur: 1.6 },
-      { damage: 4, rate: 1.1, range: 3.1, slow: 0.45, slowDur: 1.9 },
-      { damage: 6, rate: 1.2, range: 3.4, slow: 0.50, slowDur: 2.2 },
+      { damage: 3, rate: 1.0, range: 2.8, slow: 0.50, slowDur: 1.6 },
+      { damage: 4, rate: 1.1, range: 3.1, slow: 0.55, slowDur: 1.9 },
+      { damage: 6, rate: 1.2, range: 3.4, slow: 0.60, slowDur: 2.2 },
     ],
   },
 };
@@ -104,10 +104,10 @@ export function sellValue(type, level) {
 // armored — slow, tough: punishes AoE spam; needs focused bolt fire.
 // boss    — one per late wave: a wall of HP that costs 5 core lives.
 export const ENEMY_DEFS = {
-  grunt: { hp: 24, speed: 2.4, reward: 6, damage: 1, r: 0.55, score: 100, color: '#f472b6' },
-  runner: { hp: 14, speed: 4.0, reward: 8, damage: 1, r: 0.45, score: 150, color: '#fb7185' },
+  grunt: { hp: 20, speed: 2.4, reward: 6, damage: 1, r: 0.55, score: 100, color: '#f472b6' },
+  runner: { hp: 12, speed: 4.0, reward: 8, damage: 1, r: 0.45, score: 150, color: '#fb7185' },
   armored: { hp: 100, speed: 1.7, reward: 15, damage: 2, r: 0.7, score: 250, color: '#fbbf24' },
-  boss: { hp: 600, speed: 1.2, reward: 60, damage: 5, r: 1.0, score: 1000, color: '#e879f9' },
+  boss: { hp: 650, speed: 1.2, reward: 60, damage: 5, r: 1.0, score: 1000, color: '#e879f9' },
 };
 
 // --- feedback tiers (game-feel skill: small 0.10-0.20 / no stop,
@@ -181,7 +181,7 @@ function pathLengthCells(path) {
 export const MAPS = [
   {
     id: 1, name: 'First Light', seed: 11,
-    hint: 'The teaching map. Bolt towers on the bends, a frost at the choke — and never leave the exit bare.',
+    hint: 'The teaching map — bolts on the bends, frost at the choke.',
     theme: { ring: '#22d3ee', glow: '#0e7490', accent: '#f472b6', disc: '#0b1030', tint: '#67e8f9' },
     path: [[0, 4], [10, 4], [10, 1], [3, 1], [3, 7], [13, 7]],
     pads: [
@@ -192,14 +192,14 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.2 }] },
       { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.9 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 6, delay: 0, gap: 0.7 }, { type: 'armored', count: 3, delay: 3, gap: 1.2 }] },
-      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 4, delay: 4, gap: 1.2 }, { type: 'boss', count: 1, delay: 9, gap: 1 }] },
-      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.7 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 4, delay: 6, gap: 1.1 }, { type: 'boss', count: 1, delay: 11, gap: 1 }] },
+      { groups: [{ type: 'runner', count: 6, delay: 0, gap: 0.7 }, { type: 'armored', count: 4, delay: 3, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 6, delay: 4, gap: 1.2 }, { type: 'boss', count: 1, delay: 9, gap: 1 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.7 }, { type: 'runner', count: 10, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }, { type: 'boss', count: 1, delay: 11, gap: 1 }] },
     ],
   },
   {
     id: 2, name: 'Crossroads', seed: 22,
-    hint: 'A short path that doubles back on itself — the middle zigzag is the whole map. Own it or lose the core.',
+    hint: 'A short path that doubles back — the middle zigzag is the whole map.',
     theme: { ring: '#f472b6', glow: '#9d174d', accent: '#22d3ee', disc: '#1c0616', tint: '#f9a8d4' },
     path: [[0, 2], [9, 2], [9, 5], [4, 5], [4, 8], [13, 8]],
     pads: [
@@ -207,17 +207,17 @@ export const MAPS = [
       [7, 7], [10, 7], [11, 6], [1, 4], [12, 3], [0, 0], [13, 0], [6, 7], [0, 6],
     ],
     waves: [
-      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.1 }] },
-      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 8, delay: 0, gap: 0.7 }, { type: 'armored', count: 2, delay: 3, gap: 1.2 }] },
-      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 0.8 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 4, delay: 6, gap: 1.1 }] },
-      { groups: [{ type: 'armored', count: 4, delay: 0, gap: 1.2 }, { type: 'boss', count: 1, delay: 5, gap: 1 }, { type: 'runner', count: 6, delay: 8, gap: 0.6 }] },
-      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.7 }, { type: 'runner', count: 8, delay: 3, gap: 0.6 }, { type: 'armored', count: 5, delay: 6, gap: 1.0 }, { type: 'boss', count: 1, delay: 11, gap: 1 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.1 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
+      { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.7 }, { type: 'armored', count: 2, delay: 3, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 0.8 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }] },
+      { groups: [{ type: 'armored', count: 6, delay: 0, gap: 1.2 }, { type: 'boss', count: 1, delay: 5, gap: 1 }, { type: 'runner', count: 6, delay: 8, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.7 }, { type: 'runner', count: 10, delay: 3, gap: 0.6 }, { type: 'armored', count: 7, delay: 6, gap: 1.0 }, { type: 'boss', count: 1, delay: 11, gap: 1 }] },
     ],
   },
   {
     id: 3, name: 'The Gauntlet', seed: 33,
-    hint: 'Four turns, one long road. Frost the turns, bolt the straights, and save something for the two bosses.',
+    hint: 'Four turns, one long road — and two bosses at the end.',
     theme: { ring: '#fbbf24', glow: '#b45309', accent: '#22d3ee', disc: '#1c1206', tint: '#fde68a' },
     path: [[0, 1], [12, 1], [12, 4], [2, 4], [2, 7], [13, 7]],
     pads: [
@@ -225,12 +225,12 @@ export const MAPS = [
       [4, 6], [5, 6], [8, 6], [11, 6], [12, 5], [1, 3], [0, 5], [13, 0], [0, 8],
     ],
     waves: [
-      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.0 }, { type: 'runner', count: 2, delay: 4, gap: 0.7 }] },
-      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.8 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.0 }, { type: 'runner', count: 2, delay: 4, gap: 0.7 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.8 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 8, delay: 0, gap: 0.6 }, { type: 'armored', count: 2, delay: 3, gap: 1.1 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.7 }, { type: 'runner', count: 7, delay: 3, gap: 0.6 }, { type: 'armored', count: 3, delay: 6, gap: 1.0 }] },
-      { groups: [{ type: 'armored', count: 6, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
-      { groups: [{ type: 'grunt', count: 14, delay: 0, gap: 0.6 }, { type: 'runner', count: 10, delay: 3, gap: 0.55 }, { type: 'armored', count: 6, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
+      { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 14, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 7, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
   },
 ];
@@ -594,7 +594,7 @@ export function decisionBuild(run) {
     let type = 'bolt';
     // The first two towers are always bolts: cheap single-target DPS
     // is what kills the teaching waves. A pulse first cannot kill a
-    // single 24-HP grunt before it walks out of range, and a frost
+    // single 20-HP grunt before it walks out of range, and a frost
     // first has nothing to support. After the bolt pair, buy the tool
     // the next wave wants: frost for control, pulse for swarms, more
     // bolt for armour.

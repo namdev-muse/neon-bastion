@@ -460,6 +460,36 @@ function fireRing(x, z, color, maxR) {
   r.max = maxR;
 }
 
+// ---------- tower range preview ----------
+// One shared ring showing the reach of the tower that would be placed
+// on the hovered / selected pad — or the reach of the tower already
+// there. Standard TD UI: it shows range, never which pad is best.
+const rangeRingMat = new THREE.MeshBasicMaterial({ color: '#22d3ee', transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false });
+const rangeRing = new THREE.Mesh(new THREE.RingGeometry(0.96, 1.0, 48), rangeRingMat);
+rangeRing.rotation.x = -Math.PI / 2;
+rangeRing.visible = false;
+scene.add(rangeRing);
+function updateRangeRing() {
+  if (phase !== 'run' || !run || run.done || paused) { rangeRing.visible = false; return; }
+  const padId = hoveredPadId !== null ? hoveredPadId : selectedPadId;
+  if (padId === null) { rangeRing.visible = false; return; }
+  const pad = run.pads.find((p) => p.id === padId);
+  if (!pad) { rangeRing.visible = false; return; }
+  let range, color;
+  if (pad.tower) {
+    range = towerStats(pad.tower.type, pad.tower.level).range;
+    color = TOWER_DEFS[pad.tower.type].color;
+  } else {
+    range = towerStats(selectedType, 1).range;
+    color = TOWER_DEFS[selectedType].color;
+  }
+  const r = range * CELL;
+  rangeRing.position.set(pad.x, 0.32, pad.z);
+  rangeRing.scale.set(r, r, 1);
+  rangeRing.material.color.set(color);
+  rangeRing.visible = true;
+}
+
 // ---------- particles (pooled THREE.Points) ----------
 const PARTICLE_MAX = 400;
 const pGeo = new THREE.BufferGeometry();
@@ -812,6 +842,7 @@ function updateHUD() {
   $('btn-speed').textContent = `Speed ${speedMul}x`;
   refreshTowerCards();
   refreshSelectedPanel();
+  updateRangeRing();
 }
 function refreshSelectedPanel() {
   const panel = $('selected-panel');
@@ -1010,6 +1041,7 @@ function setHover(padId) {
     }
   }
   document.body.style.cursor = padId !== null ? 'pointer' : '';
+  updateRangeRing();
 }
 // One click path, used by real pointer events AND the test hooks:
 // the pad under the cursor is the pad that acts.
@@ -1153,6 +1185,7 @@ function quitToMenu() {
   run = null;
   selectedPadId = null;
   resetPerf();
+  updateRangeRing();
   clearScreens();
   $('hud').classList.add('hidden');
   $('build-bar').classList.add('hidden');
