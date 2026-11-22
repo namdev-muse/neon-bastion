@@ -19,12 +19,12 @@ function check(name, cond) {
   else { failed++; failures.push(name); console.error('FAIL:', name); }
 }
 
-check('physics version is 0.1.0', VERSION === '0.1.0');
-check('3 maps defined', MAPS.length === 3);
-check('map ids are 1..3 in order', MAPS.every((m, i) => m.id === i + 1));
+check('physics version is 0.2.0', VERSION === '0.2.0');
+check('8 maps defined', MAPS.length === 8);
+check('map ids are 1..8 in order', MAPS.every((m, i) => m.id === i + 1));
 check('every map has a name and a hint', MAPS.every((m) => m.name && m.hint));
-check('every map has a distinct theme ring', new Set(MAPS.map((m) => m.theme.ring)).size === 3);
-check('every map has a distinct theme disc', new Set(MAPS.map((m) => m.theme.disc)).size === 3);
+check('every map has a distinct theme ring', new Set(MAPS.map((m) => m.theme.ring)).size === 8);
+check('every map has a distinct theme disc', new Set(MAPS.map((m) => m.theme.disc)).size === 8);
 check('every map has 6 waves', MAPS.every((m) => m.waves.length === 6));
 check('every map is dense (40+ enemies)', MAPS.every((m) => totalEnemiesInMap(m) >= 40));
 check('threat grows with difficulty', MAPS.every((m, i) => i === 0 || mapThreat(m) > mapThreat(MAPS[i - 1])));

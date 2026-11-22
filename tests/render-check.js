@@ -1,4 +1,4 @@
-// Neon Bastion v0.1.0 — headless browser render check.
+// Neon Bastion v0.2.0 — headless browser render check.
 // Serves the game dir over local HTTP, loads it in a headless browser, and
 // asserts the M1 core, by hook and by eye:
 //   - the menu renders over a LIVE 3D scene (the attract demo actually
@@ -139,8 +139,8 @@ try {
   }
 
   const version = await page.evaluate(() => window.__bastion.version);
-  if (version !== '0.1.0') fail(`expected version 0.1.0, got ${version}`);
-  console.log('render-check: game module initialised, version 0.1.0');
+  if (version !== '0.2.0') fail(`expected version 0.2.0, got ${version}`);
+  console.log('render-check: game module initialised, version 0.2.0');
 
   // WebGL context exists and the canvas is on screen.
   const gl = await page.evaluate(() => {
@@ -156,27 +156,29 @@ try {
   // text anywhere the player can see.
   const menuText = await page.textContent('#menu');
   if (!menuText.includes('NEON BASTION')) fail('menu title missing');
-  if (menuText.includes('v0.1.0') || menuText.includes('Three.js') || menuText.includes('0.160.0')) {
+  if (menuText.includes('v0.2.0') || menuText.includes('Three.js') || menuText.includes('0.160.0')) {
     fail('menu shows version/engine text — it must live in the README only');
   }
   const playClass = await page.getAttribute('#btn-play', 'class');
   if (!playClass || !playClass.includes('primary')) fail('Play is not the primary action');
   const mapCards = await page.locator('#map-select .map-card').count();
-  if (mapCards !== 3) fail(`expected 3 map cards, got ${mapCards}`);
+  if (mapCards !== 8) fail(`expected 8 map cards, got ${mapCards}`);
   const maps = await page.evaluate(() => window.__bastion.maps());
-  if (maps.length !== 3 || maps[0].name !== 'First Light' || maps[1].name !== 'Crossroads' || maps[2].name !== 'The Gauntlet') {
+  if (maps.length !== 8 || maps[0].name !== 'First Light' || maps[1].name !== 'Crossroads' || maps[2].name !== 'The Gauntlet'
+    || maps[3].name !== 'Switchback' || maps[4].name !== 'The Corridor' || maps[5].name !== 'The Circuit'
+    || maps[6].name !== 'Serpent' || maps[7].name !== 'The Crucible') {
     fail(`map list wrong: ${JSON.stringify(maps.map((m) => m.name))}`);
   }
-  console.log('render-check: menu renders — live 3D behind it, no version text, Play primary, 3 maps');
+  console.log('render-check: menu renders — live 3D behind it, no version text, Play primary, 8 maps');
 
   // Gates on a fresh save: maps 2-3 locked, map 1 open.
   const unlocks0 = await page.evaluate(() => window.__bastion.unlocks());
-  if (unlocks0.maps[1] !== true || unlocks0.maps[2] !== false || unlocks0.maps[3] !== false) {
+  if (unlocks0.maps[1] !== true || [2, 3, 4, 5, 6, 7, 8].some((id) => unlocks0.maps[id] !== false)) {
     fail(`fresh save should unlock only map 1: ${JSON.stringify(unlocks0.maps)}`);
   }
   const lockedCards = await page.locator('#map-select .map-card.locked').count();
-  if (lockedCards !== 2) fail(`expected 2 locked map cards on a fresh save, got ${lockedCards}`);
-  console.log('render-check: gates closed on a fresh save — maps 2-3 locked (2 locked cards)');
+  if (lockedCards !== 7) fail(`expected 7 locked map cards on a fresh save, got ${lockedCards}`);
+  console.log('render-check: gates closed on a fresh save — maps 2-8 locked (7 locked cards)');
 
   // The attract demo actually plays behind the menu: towers get placed
   // and enemies walk the path (position change + towers appear).

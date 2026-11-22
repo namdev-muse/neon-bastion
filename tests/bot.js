@@ -25,11 +25,10 @@ for (const map of MAPS) {
 }
 
 // Single-type spam gate: a bot that only ever places bolt towers must
-// not clear map 3 (the swarm + armour mix punishes one-type spam).
+// not clear any map (the swarm + armour + boss mix punishes one-type spam).
 // This is enforced by construction in the decision bot's type mix;
 // here we assert the sim itself makes one-type spam weak: a full
-// bolt-only run on map 3 must fail. (Implemented via the random bot
-// with a fixed bolt-only policy below.)
+// bolt-only run on every map must fail.
 import { startRun, placeTower, startWave, stepRun, padCoverage, DT } from '../physics.js';
 function boltOnlyRun(map) {
   const run = startRun(map);
@@ -57,10 +56,16 @@ function boltOnlyRun(map) {
   return { completed: run.done && run.reason === 'complete', waves: run.wavesCleared, lives: run.lives };
 }
 {
-  const spam = boltOnlyRun(MAPS[2]);
-  console.log(`Bolt-only spam on map 3: ${spam.completed ? 'CLEARED (SLOP!)' : `lost at wave ${spam.waves + 1} (${spam.lives} lives)`}`);
-  if (spam.completed) { failures++; console.error('  BOT FAIL: map 3 is clearable by bolt-only spam — the tower roles are not distinct enough'); }
+  // Bolt-only spam (best pads, upgrades on the best tower) must fail
+  // EVERY map: one tower type must never be the whole answer. The
+  // boss + armoured late waves are what punish it — frost slow and
+  // pulse AoE are required, not optional.
+  for (const map of MAPS) {
+    const spam = boltOnlyRun(map);
+    console.log(`Bolt-only spam on map ${map.id}: ${spam.completed ? 'CLEARED (SLOP!)' : `lost at wave ${spam.waves + 1} (${spam.lives} lives)`}`);
+    if (spam.completed) { failures++; console.error(`  BOT FAIL: map ${map.id} is clearable by bolt-only spam — the tower roles are not distinct enough`); }
+  }
 }
 
 if (failures) { console.error(`bot: ${failures} failure(s)`); process.exit(1); }
-console.log(`bot: PASS — decision bot clears all ${MAPS.length} maps, random placement loses on all ${MAPS.length} (3 seeds each), bolt-only spam fails map 3`);
+console.log(`bot: PASS — decision bot clears all ${MAPS.length} maps, random placement loses on all ${MAPS.length} (3 seeds each), bolt-only spam fails all ${MAPS.length} maps`);
