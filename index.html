@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Neon Bastion — 3D Neon Tower Defense</title>
+<meta name="description" content="Neon Bastion: a 3D neon tower defense. Place towers, manage credits, hold the line against escalating waves.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+</head>
+<body>
+<div id="game-container"></div>
+<div id="hit-flash" class="hit-flash" aria-hidden="true"></div>
+<div id="low-lives" class="low-lives" aria-hidden="true"></div>
+
+<!-- HUD -->
+<div id="hud" class="hidden">
+  <div class="hud-left">
+    <span id="hud-map">Map 1 — First Light</span>
+    <span id="hud-wave">Wave 1/6</span>
+    <span id="hud-lives" class="hud-lives" aria-label="Core lives"></span>
+  </div>
+  <div class="hud-mid">
+    <span id="hud-credits">Credits 150</span>
+    <span id="hud-score">Score 0</span>
+  </div>
+  <div class="hud-right">
+    <button id="btn-speed" class="icon-btn" type="button" aria-label="Toggle game speed">Speed 1x</button>
+    <button id="btn-mute-hud" class="icon-btn" type="button" aria-label="Toggle sound">Sound: On</button>
+    <button id="btn-pause" class="icon-btn" type="button" aria-label="Pause game">Pause</button>
+  </div>
+</div>
+<div id="hud-toast" class="hud-toast" aria-hidden="true"></div>
+<div id="pops" class="pops" aria-hidden="true"></div>
+<div id="sr-status" class="sr-only" role="status" aria-live="polite"></div>
+
+<!-- Build bar (bottom) -->
+<div id="build-bar" class="build-bar hidden">
+  <div id="tower-cards" class="tower-cards" aria-label="Tower select"></div>
+  <div id="selected-panel" class="selected-panel hidden">
+    <span id="selected-name">Bolt Tower</span>
+    <span id="selected-level">Level 1</span>
+    <button id="btn-upgrade" class="btn small" type="button">Upgrade</button>
+    <button id="btn-sell" class="btn small" type="button">Sell</button>
+  </div>
+  <button id="btn-wave" class="btn primary wave-btn" type="button">Start Wave</button>
+</div>
+
+<!-- Main menu -->
+<div id="menu" class="overlay">
+  <div class="panel panel-menu">
+    <h1>NEON BASTION</h1>
+    <p class="tagline">Hold the line. Every credit is a decision — spend it where the path bends.</p>
+    <p id="webgl-error" class="webgl-error hidden">3D graphics couldn't start in this browser — Neon Bastion needs WebGL. Try a recent Chrome, Edge or Firefox on a device with graphics support.</p>
+    <div class="menu-col menu-actions">
+      <button id="btn-play" class="btn primary" type="button">Play</button>
+      <button id="btn-howto" class="btn" type="button">How to Play</button>
+      <button id="btn-settings" class="btn" type="button">Settings</button>
+      <button id="btn-mute-menu" class="btn small" type="button">Sound: On</button>
+      <p id="menu-best" class="menu-best"></p>
+    </div>
+    <div class="menu-col menu-setup">
+      <div id="map-select" class="map-select" aria-label="Map select"></div>
+      <p id="map-hint" class="map-hint"></p>
+    </div>
+  </div>
+</div>
+
+<!-- How to play -->
+<div id="howto" class="overlay hidden">
+  <div class="panel">
+    <h2>How to Play</h2>
+    <ul class="howto-list">
+      <li><strong>Enemies</strong> stream along the glowing path toward your <strong>core</strong>. If one reaches it, the core loses lives. At zero, the map is lost.</li>
+      <li><strong>Click a pad</strong> to place the selected tower there. <strong>1 / 2 / 3</strong> pick Bolt, Pulse or Frost. Click a tower to select it, then <strong>U</strong> upgrades it and <strong>X</strong> sells it back for most of its cost.</li>
+      <li><strong>Bolt</strong> fires fast single shots at long range. <strong>Pulse</strong> bursts and hits every enemy near the blast — the swarm answer. <strong>Frost</strong> chills enemies so your other towers land more hits.</li>
+      <li>Kills pay <strong>credits</strong>; clearing a wave pays a bonus. Every credit is a decision: a tower now, or save for a stronger one later.</li>
+      <li><strong>Space</strong> starts the next wave when you're ready. There is no timer — build at your own pace, then commit.</li>
+      <li><strong>Runners</strong> are fast and fragile. <strong>Armored</strong> enemies shrug off bursts — focus them with bolts. <strong>Bosses</strong> cost five core lives if they leak.</li>
+      <li>Clear a map to unlock the next one. Your best score is saved per map — beat it.</li>
+    </ul>
+    <h3>Controls</h3>
+    <ul class="howto-list">
+      <li>Click / tap: select pad or tower &middot; 1 / 2 / 3: pick tower type</li>
+      <li>U: upgrade &middot; X: sell &middot; Space: start wave &middot; F: speed</li>
+      <li>P: pause &middot; M: mute &middot; R: restart &middot; Esc: back</li>
+    </ul>
+    <button id="btn-howto-close" class="btn primary" type="button">Got it</button>
+  </div>
+</div>
+
+<!-- Settings -->
+<div id="settings" class="overlay hidden">
+  <div class="panel">
+    <h2>Settings</h2>
+    <label class="slider-row">Volume
+      <input id="volume-range" type="range" min="0" max="100" value="60" aria-label="Volume">
+      <span id="volume-value">60%</span>
+    </label>
+    <label class="slider-row">Screen shake
+      <input id="shake-range" type="range" min="0" max="100" value="100" aria-label="Screen shake strength">
+      <span id="shake-value">100%</span>
+    </label>
+    <label class="toggle-row">Music
+      <input id="music-toggle" type="checkbox" checked aria-label="Music on or off">
+    </label>
+    <label class="toggle-row">Sound effects
+      <input id="sfx-toggle" type="checkbox" checked aria-label="Sound effects on or off">
+    </label>
+    <label class="toggle-row">Reduce flashing
+      <input id="reduce-flashing" type="checkbox" aria-label="Reduce flashing — no bright flashes">
+    </label>
+    <label class="slider-row">Text size
+      <select id="text-size-select" aria-label="Text size">
+        <option value="1">Normal</option>
+        <option value="1.2">Large</option>
+        <option value="1.4">Extra large</option>
+      </select>
+    </label>
+    <label class="toggle-row">High contrast
+      <input id="high-contrast-toggle" type="checkbox" aria-label="High contrast — brighter text and panels">
+    </label>
+    <button id="btn-settings-close" class="btn primary" type="button">Back to Menu</button>
+  </div>
+</div>
+
+<!-- Map complete -->
+<div id="complete" class="overlay hidden">
+  <div class="panel">
+    <h2>Map Held</h2>
+    <p id="complete-score" class="big-score">Score 0</p>
+    <p id="complete-detail"></p>
+    <p id="complete-best" class="complete-best"></p>
+    <button id="btn-next" class="btn primary" type="button">Next Map</button>
+    <button id="btn-replay" class="btn" type="button">Play Again</button>
+    <button id="btn-menu-complete" class="btn" type="button">Main Menu</button>
+  </div>
+</div>
+
+<!-- Map lost -->
+<div id="maplost" class="overlay hidden">
+  <div class="panel">
+    <h2>Core Breached</h2>
+    <p id="maplost-text">The swarm broke through.</p>
+    <p id="maplost-stats" class="maplost-stats"></p>
+    <p id="maplost-best" class="complete-best"></p>
+    <button id="btn-retry" class="btn primary" type="button">Try Again</button>
+    <button id="btn-menu-maplost" class="btn" type="button">Main Menu</button>
+  </div>
+</div>
+
+<!-- Pause -->
+<div id="pause" class="overlay hidden">
+  <div class="panel">
+    <h2>Paused</h2>
+    <button id="btn-resume" class="btn primary" type="button">Resume</button>
+    <button id="btn-restart" class="btn" type="button">Restart Map</button>
+    <button id="btn-quit" class="btn" type="button">Quit to Menu</button>
+    <label class="slider-row">Screen shake
+      <input id="shake-range-pause" type="range" min="0" max="100" value="100" aria-label="Screen shake strength">
+      <span id="shake-value-pause">100%</span>
+    </label>
+    <button id="btn-mute-pause" class="btn small" type="button">Sound: On</button>
+  </div>
+</div>
+
+<script type="module" src="game.js"></script>
+</body>
+</html>
