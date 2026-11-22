@@ -247,7 +247,7 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.7 }, { type: 'armored', count: 2, delay: 3, gap: 1.2 }] },
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.0 }, { type: 'runner', count: 6, delay: 3, gap: 0.8 }, { type: 'armored', count: 6, delay: 6, gap: 1.3 }] },
-      { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 6, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 8, delay: 2, gap: 1.1 }, { type: 'boss', count: 2, delay: 7, gap: 2.5 }, { type: 'runner', count: 6, delay: 11, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 14, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 8, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
   },
@@ -255,10 +255,10 @@ export const MAPS = [
     id: 5, name: 'The Corridor', seed: 55,
     hint: 'Two long runs with a jog — the middle pads cover both.',
     theme: { ring: '#34d399', glow: '#047857', accent: '#fbbf24', disc: '#06180f', tint: '#6ee7b7' },
-    path: [[0, 1], [13, 1], [13, 4], [10, 4], [10, 7], [0, 7]],
+    path: [[0, 1], [13, 1], [13, 4], [10, 4], [10, 5], [0, 5]],
     pads: [
-      [6, 2], [9, 2], [12, 2], [3, 3], [7, 3], [11, 3], [9, 5], [6, 6],
-      [3, 6], [11, 6], [12, 5], [8, 5], [12, 0], [0, 3], [0, 5], [13, 6], [13, 8],
+      [6, 2], [9, 2], [12, 2], [0, 3], [3, 3], [7, 3], [11, 3], [12, 3],
+      [12, 5], [3, 6], [6, 6], [9, 6], [11, 6], [12, 0], [0, 8],
     ],
     waves: [
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.1 }] },
@@ -282,7 +282,7 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.5 }] },
       { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 1.1 }, { type: 'runner', count: 4, delay: 5, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.9 }, { type: 'armored', count: 4, delay: 4, gap: 1.2 }] },
-      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.6 }, { type: 'armored', count: 7, delay: 6, gap: 1.1 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.8 }, { type: 'armored', count: 7, delay: 7, gap: 1.4 }] },
       { groups: [{ type: 'armored', count: 10, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 16, delay: 0, gap: 0.6 }, { type: 'runner', count: 14, delay: 3, gap: 0.55 }, { type: 'armored', count: 9, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
@@ -301,7 +301,7 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 14, delay: 0, gap: 0.8 }, { type: 'armored', count: 4, delay: 4, gap: 1.1 }] },
       { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 1.0 }, { type: 'runner', count: 10, delay: 3, gap: 0.8 }, { type: 'armored', count: 10, delay: 7, gap: 1.1 }] },
-      { groups: [{ type: 'armored', count: 10, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 16, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'armored', count: 9, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 10, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 18, delay: 0, gap: 0.6 }, { type: 'runner', count: 24, delay: 3, gap: 0.55 }, { type: 'armored', count: 12, delay: 6, gap: 1.0 }, { type: 'boss', count: 3, delay: 11, gap: 2.5 }] },
     ],
   },
@@ -319,7 +319,7 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.1 }, { type: 'runner', count: 3, delay: 5, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.8 }, { type: 'armored', count: 3, delay: 4, gap: 1.1 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 4, delay: 6, gap: 1.0 }] },
-      { groups: [{ type: 'armored', count: 12, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 10, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 12, delay: 2, gap: 1.1 }, { type: 'boss', count: 2, delay: 7, gap: 2.5 }, { type: 'runner', count: 10, delay: 11, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 24, delay: 0, gap: 0.6 }, { type: 'runner', count: 20, delay: 3, gap: 0.55 }, { type: 'armored', count: 12, delay: 6, gap: 1.0 }, { type: 'boss', count: 4, delay: 11, gap: 2.5 }] },
     ],
   },
@@ -604,8 +604,9 @@ export function stepRun(run, dt = DT) {
     if (e.s >= geo.length) {
       run.enemies.splice(run.enemies.indexOf(e), 1);
       const def = ENEMY_DEFS[e.type];
+      const lost = Math.min(def.damage, run.lives);
       run.lives -= def.damage;
-      run.livesLost += def.damage;
+      run.livesLost += lost;
       run.leaked++;
       events.push({ type: 'leak', kind: e.type, damage: def.damage, lives: run.lives });
       if (run.lives <= 0) {
