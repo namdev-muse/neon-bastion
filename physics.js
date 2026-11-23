@@ -185,6 +185,13 @@ function pathLengthCells(path) {
   return n;
 }
 
+// Fix round 5 (M2, playtest round 4): the W3→4 wall is gone but W5 cliffs
+// (10–18 lives in one wave: 8–12 armored at 2 lives each + 2 bosses at 5).
+// Same counts where possible, wider armored gaps + later boss delays so a
+// few towers can focus-fire the train; maps 5/6/7 get a grunt lead-in so
+// armored no longer arrive first. Map 6 W2 / map 8 W2–W3 spacing widened
+// (both bled from wave 2). Life costs are now disclosed in How to Play
+// (grunt/runner 1, armored 2, boss 5) — the "feels rigged" finding.
 export const MAPS = [
   {
     id: 1, name: 'First Light', seed: 11,
@@ -254,7 +261,7 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.7 }, { type: 'armored', count: 2, delay: 5, gap: 1.2 }] },
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.0 }, { type: 'runner', count: 6, delay: 3, gap: 1.0 }, { type: 'armored', count: 6, delay: 7, gap: 1.5 }] },
-      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 8, delay: 2, gap: 1.1 }, { type: 'boss', count: 2, delay: 7, gap: 2.5 }, { type: 'runner', count: 6, delay: 11, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 8, delay: 2, gap: 1.5 }, { type: 'boss', count: 2, delay: 9, gap: 2.5 }, { type: 'runner', count: 6, delay: 13, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 14, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 8, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
   },
@@ -272,7 +279,7 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 1.1 }, { type: 'runner', count: 3, delay: 5, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 12, delay: 0, gap: 1.1 }, { type: 'armored', count: 3, delay: 6, gap: 1.2 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.8 }, { type: 'armored', count: 6, delay: 8, gap: 1.3 }] },
-      { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 0.8 }, { type: 'armored', count: 8, delay: 4, gap: 1.5 }, { type: 'boss', count: 2, delay: 8, gap: 2.5 }, { type: 'runner', count: 8, delay: 12, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 16, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 8, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
   },
@@ -287,10 +294,10 @@ export const MAPS = [
     ],
     waves: [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.5 }] },
-      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 1.1 }, { type: 'runner', count: 4, delay: 5, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.9 }, { type: 'armored', count: 4, delay: 6, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 1.3 }, { type: 'runner', count: 4, delay: 6, gap: 1.0 }] },
+      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 1.1 }, { type: 'armored', count: 4, delay: 7, gap: 1.4 }] },
       { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 1.0 }, { type: 'armored', count: 7, delay: 9, gap: 1.6 }] },
-      { groups: [{ type: 'armored', count: 10, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 0.8 }, { type: 'armored', count: 10, delay: 4, gap: 1.5 }, { type: 'boss', count: 2, delay: 8, gap: 2.5 }, { type: 'runner', count: 8, delay: 12, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 16, delay: 0, gap: 0.6 }, { type: 'runner', count: 14, delay: 3, gap: 0.55 }, { type: 'armored', count: 9, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
   },
@@ -308,7 +315,7 @@ export const MAPS = [
       { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'runner', count: 14, delay: 0, gap: 1.0 }, { type: 'armored', count: 4, delay: 6, gap: 1.3 }] },
       { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 1.0 }, { type: 'runner', count: 10, delay: 3, gap: 1.0 }, { type: 'armored', count: 10, delay: 9, gap: 1.3 }] },
-      { groups: [{ type: 'armored', count: 9, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 10, delay: 9, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 0.8 }, { type: 'armored', count: 8, delay: 4, gap: 1.5 }, { type: 'boss', count: 2, delay: 8, gap: 2.5 }, { type: 'runner', count: 10, delay: 12, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 18, delay: 0, gap: 0.6 }, { type: 'runner', count: 24, delay: 3, gap: 0.55 }, { type: 'armored', count: 12, delay: 6, gap: 1.0 }, { type: 'boss', count: 3, delay: 11, gap: 2.5 }] },
     ],
   },
@@ -323,10 +330,10 @@ export const MAPS = [
     ],
     waves: [
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.2 }] },
-      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.1 }, { type: 'runner', count: 3, delay: 5, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.8 }, { type: 'armored', count: 3, delay: 4, gap: 1.1 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.1 }, { type: 'runner', count: 3, delay: 6, gap: 1.0 }] },
+      { groups: [{ type: 'runner', count: 10, delay: 0, gap: 1.0 }, { type: 'armored', count: 3, delay: 6, gap: 1.3 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'runner', count: 6, delay: 3, gap: 0.6 }, { type: 'armored', count: 4, delay: 6, gap: 1.0 }] },
-      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 12, delay: 2, gap: 1.1 }, { type: 'boss', count: 2, delay: 7, gap: 2.5 }, { type: 'runner', count: 10, delay: 11, gap: 0.6 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 10, delay: 2, gap: 1.5 }, { type: 'boss', count: 2, delay: 9, gap: 2.5 }, { type: 'runner', count: 10, delay: 13, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 24, delay: 0, gap: 0.6 }, { type: 'runner', count: 20, delay: 3, gap: 0.55 }, { type: 'armored', count: 12, delay: 6, gap: 1.0 }, { type: 'boss', count: 4, delay: 11, gap: 2.5 }] },
     ],
   },
