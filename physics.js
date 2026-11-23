@@ -85,8 +85,15 @@ export function towerStats(type, level) {
 export function upgradeCost(type, level) {
   const def = TOWER_DEFS[type];
   if (!def || level >= MAX_TOWER_LEVEL) return null;
-  // Level 2 costs 80% of base, level 3 costs 120% of base.
-  return Math.round(def.cost * (level === 1 ? 0.8 : 1.2));
+  // Level 2 costs 60% of base, level 3 costs 90% of base.
+  // Fix round 4 (M2): upgrades were 0.8/1.2 — the between-wave
+  // human could rarely afford them after placing, so their DPS
+  // lagged the decision bot's by a full wave. Cheaper upgrades
+  // reward the upgrade-the-workhorse play the live playtester
+  // actually uses, without feeding place-everything bots: the
+  // bolt-spam gate never upgrades, and random upgrades random
+  // towers on bad pads.
+  return Math.round(def.cost * (level === 1 ? 0.6 : 0.9));
 }
 export function towerInvested(type, level) {
   const def = TOWER_DEFS[type];
@@ -245,8 +252,8 @@ export const MAPS = [
     waves: [
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.2 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.9 }, { type: 'runner', count: 3, delay: 4, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.7 }, { type: 'armored', count: 2, delay: 3, gap: 1.2 }] },
-      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.0 }, { type: 'runner', count: 6, delay: 3, gap: 0.8 }, { type: 'armored', count: 6, delay: 6, gap: 1.3 }] },
+      { groups: [{ type: 'runner', count: 10, delay: 0, gap: 0.7 }, { type: 'armored', count: 2, delay: 5, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.0 }, { type: 'runner', count: 6, delay: 3, gap: 1.0 }, { type: 'armored', count: 6, delay: 7, gap: 1.5 }] },
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'armored', count: 8, delay: 2, gap: 1.1 }, { type: 'boss', count: 2, delay: 7, gap: 2.5 }, { type: 'runner', count: 6, delay: 11, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 14, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 8, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
@@ -263,8 +270,8 @@ export const MAPS = [
     waves: [
       { groups: [{ type: 'grunt', count: 6, delay: 0, gap: 1.1 }] },
       { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 1.1 }, { type: 'runner', count: 3, delay: 5, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.9 }, { type: 'armored', count: 3, delay: 4, gap: 1.2 }] },
-      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.6 }, { type: 'armored', count: 6, delay: 6, gap: 1.1 }] },
+      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 1.1 }, { type: 'armored', count: 3, delay: 6, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.8 }, { type: 'armored', count: 6, delay: 8, gap: 1.3 }] },
       { groups: [{ type: 'armored', count: 8, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 16, delay: 0, gap: 0.6 }, { type: 'runner', count: 12, delay: 3, gap: 0.55 }, { type: 'armored', count: 8, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
@@ -281,8 +288,8 @@ export const MAPS = [
     waves: [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.5 }] },
       { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 1.1 }, { type: 'runner', count: 4, delay: 5, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.9 }, { type: 'armored', count: 4, delay: 4, gap: 1.2 }] },
-      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 0.8 }, { type: 'armored', count: 7, delay: 7, gap: 1.4 }] },
+      { groups: [{ type: 'runner', count: 12, delay: 0, gap: 0.9 }, { type: 'armored', count: 4, delay: 6, gap: 1.2 }] },
+      { groups: [{ type: 'grunt', count: 10, delay: 0, gap: 0.8 }, { type: 'runner', count: 8, delay: 3, gap: 1.0 }, { type: 'armored', count: 7, delay: 9, gap: 1.6 }] },
       { groups: [{ type: 'armored', count: 10, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 8, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 16, delay: 0, gap: 0.6 }, { type: 'runner', count: 14, delay: 3, gap: 0.55 }, { type: 'armored', count: 9, delay: 6, gap: 1.0 }, { type: 'boss', count: 2, delay: 11, gap: 2.5 }] },
     ],
@@ -299,8 +306,8 @@ export const MAPS = [
     waves: [
       { groups: [{ type: 'grunt', count: 8, delay: 0, gap: 1.1 }, { type: 'runner', count: 2, delay: 4, gap: 0.7 }] },
       { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 0.9 }, { type: 'runner', count: 4, delay: 4, gap: 0.7 }] },
-      { groups: [{ type: 'runner', count: 14, delay: 0, gap: 0.8 }, { type: 'armored', count: 4, delay: 4, gap: 1.1 }] },
-      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 1.0 }, { type: 'runner', count: 10, delay: 3, gap: 0.8 }, { type: 'armored', count: 10, delay: 7, gap: 1.1 }] },
+      { groups: [{ type: 'runner', count: 14, delay: 0, gap: 1.0 }, { type: 'armored', count: 4, delay: 6, gap: 1.3 }] },
+      { groups: [{ type: 'grunt', count: 12, delay: 0, gap: 1.0 }, { type: 'runner', count: 10, delay: 3, gap: 1.0 }, { type: 'armored', count: 10, delay: 9, gap: 1.3 }] },
       { groups: [{ type: 'armored', count: 9, delay: 0, gap: 1.1 }, { type: 'boss', count: 2, delay: 5, gap: 2.5 }, { type: 'runner', count: 10, delay: 9, gap: 0.6 }] },
       { groups: [{ type: 'grunt', count: 18, delay: 0, gap: 0.6 }, { type: 'runner', count: 24, delay: 3, gap: 0.55 }, { type: 'armored', count: 12, delay: 6, gap: 1.0 }, { type: 'boss', count: 3, delay: 11, gap: 2.5 }] },
     ],
@@ -390,6 +397,14 @@ export function mapThreat(map) {
   return t;
 }
 export function waveBonus(waveIndex) {
+  // Fix round 4 (M2): income is NOT the lever — two curves tried
+  // (45+15n, 35+10n) both broke the anti-slop gates (random cleared
+  // maps 2/5/7, bolt-spam cleared map 1) while barely moving the
+  // human probe. The wave 3→4→5 bleed is a focus-fire problem, not
+  // an income problem: armored soak DPS while runners leak. Fixed
+  // instead by spacing/delaying the spike waves (same counts, same
+  // income) so a few towers can finish the chaff before the armored
+  // arrive. Baseline bonus restored.
   return 18 + 5 * (waveIndex + 1);
 }
 
