@@ -269,8 +269,8 @@ try {
   console.log('render-check: keys 1/2 select types; unaffordable pulse refused with no spend');
 
   // Upgrade (U) and sell (X) through real keys on the selected tower.
-  // One bolt is placed (90 credits left): the upgrade costs 48, the
-  // sell refunds 75 — both affordable and assertable.
+  // One bolt is placed (90 credits left): the upgrade costs 36
+  // (0.6 x base 60 — fix round 4), the sell refunds 67 (70% of 96).
   const padAScreen = await page.evaluate((id) => window.__bastion.padScreen(id), padPick.id);
   await page.mouse.click(padAScreen.x, padAScreen.y); // select the tower
   await page.waitForFunction(() => !document.querySelector('#selected-panel').classList.contains('hidden'), null, { timeout: 5000 });
@@ -282,7 +282,7 @@ try {
     return t && t.level === 2;
   }, padPick.id, { timeout: 5000 });
   const afterUp = await page.evaluate(() => window.__bastion.info());
-  if (afterUp.credits !== creditsBeforeUp - 48) fail(`upgrade should cost 48: ${creditsBeforeUp} -> ${afterUp.credits}`);
+  if (afterUp.credits !== creditsBeforeUp - 36) fail(`upgrade should cost 36: ${creditsBeforeUp} -> ${afterUp.credits}`);
   const fbUp = await page.evaluate(() => window.__bastion.info().feedback.filter((f) => f.type === 'upgrade'));
   if (!fbUp.length || fbUp[0].layers.length < 5) fail('upgrade feedback bundle did not fire with 5+ layers');
   await page.keyboard.press('x');
@@ -291,8 +291,8 @@ try {
     return !i.pads.find((x) => x.id === id).occupied;
   }, padPick.id, { timeout: 5000 });
   const afterSell = await page.evaluate(() => window.__bastion.info());
-  if (afterSell.credits !== afterUp.credits + 75) fail(`sell should refund 75 (70% of 108): ${afterUp.credits} -> ${afterSell.credits}`);
-  console.log(`render-check: U upgrades to level 2 for 48c (feedback bundle fired), X sells back 75c — upgrade/sell work through real keys`);
+  if (afterSell.credits !== afterUp.credits + 67) fail(`sell should refund 67 (70% of 96): ${afterUp.credits} -> ${afterSell.credits}`);
+  console.log(`render-check: U upgrades to level 2 for 36c (feedback bundle fired), X sells back 67c — upgrade/sell work through real keys`);
 
   // Place the bolt again on the same pad, so the wave test has one tower.
   await page.mouse.click(padAScreen.x, padAScreen.y);
